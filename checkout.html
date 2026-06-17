@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement | Orvane Paris</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@100;200;300;400&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{--n:#05040A;--n2:#0D0B14;--n3:#151220;--w:#EEE8F5;--w2:#C8BED8;--or:#B8943F;--or2:#E0B84A;--acc:#7B4FD4;--acc2:#A87FEE;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--n);font-family:'Outfit',sans-serif;color:var(--w);overflow-x:hidden;cursor:none;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.8rem 3rem;background:var(--n);}
+    .nav-logo-wrap{display:flex;flex-direction:column;align-items:flex-start;cursor:pointer;}
+    .nav-logo{font-family:'Playfair Display',serif;font-weight:400;font-size:17px;letter-spacing:0.3em;color:var(--w);text-transform:uppercase;line-height:1;}
+    .nav-logo-line{width:100%;height:0.5px;background:var(--or);margin-top:3px;opacity:0.6;}
+    .nav-c{display:flex;gap:2.5rem;align-items:center;}
+    .nav-c a{font-size:9px;font-weight:200;letter-spacing:0.35em;text-transform:uppercase;color:var(--w2);text-decoration:none;transition:color .3s;}
+    .nav-c a:hover{color:var(--or2);}
+    .nav-cart{font-size:9px;font-weight:200;letter-spacing:0.35em;text-transform:uppercase;color:var(--or2);text-decoration:none;transition:color .3s;}
+    .nav-cart:hover{color:var(--or2);}
+    .hbg{display:none;flex-direction:column;gap:6px;cursor:pointer;}
+    .hbg i{width:24px;height:0.5px;background:var(--w);display:block;transition:all .4s;}
+    .mob-menu{position:fixed;inset:0;background:var(--n2);z-index:300;display:flex;flex-direction:column;justify-content:center;padding:3rem;transform:translateY(-100%);transition:transform .7s cubic-bezier(.77,0,.18,1);}
+    .mob-menu.on{transform:translateY(0);} .mob-close{position:absolute;top:2rem;right:2rem;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--w2);cursor:pointer;}
+    .mob-links{display:flex;flex-direction:column;gap:1.5rem;}
+    .mob-links a{font-family:'Playfair Display',serif;font-size:clamp(32px,8vw,52px);font-weight:400;font-style:italic;color:var(--w);text-decoration:none;transition:color .3s;}
+    .mob-links a:hover{color:var(--or2);}
+    .checkout-page{padding:10rem 3rem 5rem;max-width:800px;margin:0 auto;}
+    .checkout-title{font-family:'Playfair Display',serif;font-size:clamp(48px,6vw,84px);font-weight:400;font-style:italic;color:var(--w);line-height:1.05;margin-bottom:2rem;}
+    .checkout-form{display:grid;gap:2rem;}
+    .form-section{background:var(--n2);padding:2rem;border:0.5px solid rgba(238,232,245,0.08);}
+    .form-section h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--w);margin-bottom:1.5rem;}
+    .form-group{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;}
+    .form-group label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--w2);}
+    .form-group input,.form-group select{background:var(--n);border:0.5px solid rgba(238,232,245,0.2);color:var(--w);padding:1rem;font-size:14px;outline:none;transition:border-color .3s;}
+    .form-group input:focus,.form-group select:focus{border-color:var(--or);}
+    .form-group input::placeholder{color:var(--w2);}
+    .payment-methods{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;}
+    .payment-method{background:var(--n);border:0.5px solid rgba(238,232,245,0.2);padding:1rem;text-align:center;cursor:pointer;transition:all .3s;}
+    .payment-method:hover{border-color:var(--or);}
+    .payment-method.selected{border-color:var(--or);background:var(--or);color:var(--n);}
+    .btn-pay{display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 2rem;border:0.5px solid var(--or);color:var(--or);background:none;text-decoration:none;font-size:12px;letter-spacing:.25em;text-transform:uppercase;transition:all .3s;cursor:pointer;margin-top:2rem;width:100%;justify-content:center;}
+    .btn-pay:hover{background:var(--or);color:var(--n);}
+    .order-summary{margin-top:3rem;background:var(--n2);padding:2rem;border:0.5px solid rgba(238,232,245,0.08);}
+    .order-summary h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--w);margin-bottom:1rem;}
+    .order-item{display:flex;justify-content:space-between;margin-bottom:0.5rem;}
+    .order-total{display:flex;justify-content:space-between;font-weight:400;margin-top:1rem;border-top:0.5px solid rgba(238,232,245,0.08);padding-top:1rem;}
+    footer{background:#020108;padding:5rem 3rem 2rem;border-top:0.5px solid rgba(184,148,63,0.12);margin-top:5rem;}
+    .ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;}
+    .ft-brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;letter-spacing:.3em;color:var(--w);margin-bottom:.8rem;}
+    .ft-tag{font-size:10px;font-weight:200;letter-spacing:.1em;color:rgba(238,232,245,0.2);line-height:1.9;}
+    .ft-col-t{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--or);margin-bottom:1.2rem;}
+    .ft-col a{display:block;font-size:10px;font-weight:200;letter-spacing:.08em;color:rgba(238,232,245,0.3);text-decoration:none;margin-bottom:.7rem;transition:color .3s;}
+    .ft-col a:hover{color:var(--or2);}
+    .ft-bottom{border-top:0.5px solid rgba(238,232,245,0.06);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    .ft-copy{font-size:9px;font-weight:200;letter-spacing:.12em;color:rgba(238,232,245,0.15);}
+    @media(max-width:900px){.checkout-page{padding:8rem 1.5rem 3rem;}.nav-c{display:none;}.hbg{display:flex;}}
+    @media(max-width:600px){.checkout-title{font-size:clamp(32px,8vw,56px);}.payment-methods{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+    <div class="cur-dot" id="cd"></div>
+    <div class="cur-circle" id="cc"></div>
+    <div class="mob-menu" id="mm">
+      <div class="mob-close" onclick="document.getElementById('mm').classList.remove('on')">— Fermer</div>
+      <div class="mob-links">
+        <a href="collections.html">Collections</a>
+        <a href="savoir-faire.html">Savoir-faire</a>
+        <a href="la-maison.html">La Maison</a>
+        <a href="univers.html">Univers</a>
+      </div>
+    </div>
+    <nav>
+      <div class="nav-logo-wrap" onclick="window.location.href='orvane_site_unique.html'">
+        <div class="nav-logo">Orvane</div>
+        <div class="nav-logo-line"></div>
+      </div>
+      <div class="nav-c">
+        <a href="collections.html">Collections</a>
+        <a href="savoir-faire.html">Savoir-faire</a>
+        <a href="la-maison.html">La Maison</a>
+        <a href="univers.html">Univers</a>
+        <a href="cart.html" class="nav-cart">Panier</a>
+      </div>
+      <div class="hbg" onclick="document.getElementById('mm').classList.add('on')"><i></i><i></i></div>
+    </nav>
+    <main class="checkout-page">
+      <h1 class="checkout-title">Paiement</h1>
+      <form class="checkout-form" onsubmit="processPayment(event)">
+        <div class="form-section">
+          <h2>Informations de livraison</h2>
+          <div class="form-group">
+            <label for="name">Nom complet</label>
+            <input type="text" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="address">Adresse</label>
+            <input type="text" id="address" required>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="form-group">
+              <label for="city">Ville</label>
+              <input type="text" id="city" required>
+            </div>
+            <div class="form-group">
+              <label for="zip">Code postal</label>
+              <input type="text" id="zip" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="country">Pays</label>
+            <select id="country" required>
+              <option value="France">France</option>
+              <option value="Belgique">Belgique</option>
+              <option value="Suisse">Suisse</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-section">
+          <h2>Moyen de paiement</h2>
+          <p>Paiement sécurisé via Stripe. Accepte les cartes Visa, Mastercard, American Express, et autres cartes bancaires.</p>
+          <div class="payment-methods">
+            <div class="payment-method selected">Carte bancaire</div>
+          </div>
+        </div>
+        <button type="submit" class="btn-pay">Payer maintenant</button>
+      </form>
+    </main>
+    <footer>
+      <div class="ft">
+        <div>
+          <div class="ft-brand">Orvane</div>
+          <div class="ft-tag">Maison de maroquinerie indépendante.<br>Paris, France. Fondée en 2026.<br>Chaque pièce est unique.</div>
+        </div>
+        <div class="ft-col"><div class="ft-col-t">Collections</div><a href="astral.html">L'Astral — Femme</a><a href="brut.html">Le Brut — Homme</a><a href="collections.html">Petite maroquinerie</a></div>
+        <div class="ft-col"><div class="ft-col-t">La Maison</div><a href="la-maison.html">Notre histoire</a><a href="savoir-faire.html">Savoir-faire</a><a href="manifeste.html">Manifeste</a></div>
+      </div>
+      <div class="ft-bottom"><div class="ft-copy">© 2026 Orvane Paris — Tous droits réservés</div></div>
+    </footer>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+    const stripe = Stripe('pk_test_YOUR_STRIPE_PUBLISHABLE_KEY'); // Remplacez par votre clé publique Stripe
+
+    function loadOrderSummary() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let orderItems = document.getElementById('order-items');
+        let total = 0;
+        orderItems.innerHTML = '';
+        cart.forEach(item => {
+            let itemTotal = item.price * item.qty;
+            total += itemTotal;
+            orderItems.innerHTML += `<div class="order-item"><span>${item.name} x${item.qty}</span><span>${itemTotal} €</span></div>`;
+        });
+        document.getElementById('order-total').textContent = total + ' €';
+    }
+
+    async function processPayment(event) {
+        event.preventDefault();
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart.length === 0) {
+            alert('Votre panier est vide.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/create-checkout-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ cart })
+            });
+            const session = await response.json();
+            await stripe.redirectToCheckout({ sessionId: session.id });
+        } catch (error) {
+            alert('Erreur lors de la création de la session de paiement.');
+        }
+    }
+
+    loadOrderSummary();
+    const cd=document.getElementById('cd'),cc=document.getElementById('cc');let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';});(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cc.style.left=rx+'px';cc.style.top=ry+'px';requestAnimationFrame(loop);})();document.querySelectorAll('button,a,.hbg,.mob-close,.nav-logo-wrap,.btn-pay').forEach(el=>{el.addEventListener('mouseenter',()=>{cc.style.width='64px';cc.style.height='64px';cd.style.opacity='0';});el.addEventListener('mouseleave',()=>{cc.style.width='44px';cc.style.height='44px';cd.style.opacity='1';});});
+    </script>
+</body>
+</html>

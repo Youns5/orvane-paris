@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Sacs | Orvane Paris</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@100;200;300;400&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --n:#05040A;
+      --n2:#0D0B14;
+      --n3:#151220;
+      --w:#EEE8F5;
+      --w2:#C8BED8;
+      --or:#B8943F;
+      --or2:#E0B84A;
+      --acc:#7B4FD4;
+      --acc2:#A87FEE;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--n);font-family:'Outfit',sans-serif;color:var(--w);overflow-x:hidden;cursor:none;}
+
+    .cur{position:fixed;z-index:9999;pointer-events:none;mix-blend-mode:difference;}
+.cur-dot{width:6px;height:6px;background:var(--w);border-radius:50%;position:fixed;transform:translate(-50%,-50%);transition:width .3s,height .3s;pointer-events:none;}
+.cur-circle{width:44px;height:44px;border:1px solid rgba(238,232,245,0.3);border-radius:50%;position:fixed;transform:translate(-50%,-50%);transition:all .18s cubic-bezier(.25,.1,.25,1);pointer-events:none;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.8rem 3rem;background:var(--n);}
+    .nav-logo-wrap{display:flex;flex-direction:column;align-items:flex-start;cursor:pointer;}
+    .nav-logo{font-family:'Playfair Display',serif;font-weight:400;font-size:17px;letter-spacing:0.3em;color:var(--w);text-transform:uppercase;line-height:1;}
+    .nav-logo-line{width:100%;height:0.5px;background:var(--or);margin-top:3px;opacity:0.6;}
+    .nav-c{display:flex;gap:2.5rem;align-items:center;}
+    .nav-c a{font-size:9px;font-weight:200;letter-spacing:0.35em;text-transform:uppercase;color:var(--w2);text-decoration:none;transition:color .3s;}
+    .nav-c a:hover{color:var(--or2);}
+    .nav-cart{font-size:9px;font-weight:200;letter-spacing:0.35em;text-transform:uppercase;color:var(--w2);text-decoration:none;transition:color .3s;}
+    .nav-cart:hover{color:var(--or2);}
+    .hbg{display:none;flex-direction:column;gap:6px;cursor:pointer;}
+    .hbg i{width:24px;height:0.5px;background:var(--w);display:block;transition:all .4s;}
+
+    .mob-menu{position:fixed;inset:0;background:var(--n2);z-index:300;display:flex;flex-direction:column;justify-content:center;padding:3rem;transform:translateY(-100%);transition:transform .7s cubic-bezier(.77,0,.18,1);}
+    .mob-menu.on{transform:translateY(0);}
+    .mob-close{position:absolute;top:2rem;right:2rem;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--w2);cursor:pointer;}
+    .mob-links{display:flex;flex-direction:column;gap:1.5rem;}
+    .mob-links a{font-family:'Playfair Display',serif;font-size:clamp(32px,8vw,52px);font-weight:400;font-style:italic;color:var(--w);text-decoration:none;transition:color .3s;}
+    .mob-links a:hover{color:var(--or2);}
+
+    .content-page{padding:10rem 3rem 5rem;}
+    .page-title{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,80px);font-weight:400;font-style:italic;color:var(--w);margin-bottom:2rem;text-align:center;}
+    .page-subtitle{font-size:12px;font-weight:200;letter-spacing:0.4em;text-transform:uppercase;color:var(--or);text-align:center;margin-bottom:4rem;}
+
+    .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+    .prod-card{background:var(--n2);overflow:hidden;cursor:pointer;border:0.5px solid rgba(184,148,63,0.1);transition:all .3s;}
+    .prod-card:hover{border-color:var(--or);}
+    .prod-img{aspect-ratio:3/4;background:var(--n3);display:flex;align-items:center;justify-content:center;}
+    .prod-img svg{transition:transform .8s cubic-bezier(.25,.1,.25,1);}
+    .prod-card:hover .prod-img svg{transform:scale(1.06);}
+    .prod-info{padding:1.8rem 1.5rem;}
+    .prod-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;font-style:italic;color:var(--w);margin-bottom:4px;}
+    .prod-price{font-size:13px;font-weight:200;letter-spacing:.1em;color:var(--or2);}
+
+    footer{background:#020108;padding:5rem 3rem 2rem;border-top:0.5px solid rgba(184,148,63,0.12);margin-top:5rem;}
+    .ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;}
+    .ft-brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;letter-spacing:.3em;color:var(--w);margin-bottom:.8rem;}
+    .ft-tag{font-size:10px;font-weight:200;letter-spacing:.1em;color:rgba(238,232,245,0.2);line-height:1.9;}
+    .ft-col-t{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--or);margin-bottom:1.2rem;}
+    .ft-col a{display:block;font-size:10px;font-weight:200;letter-spacing:.08em;color:rgba(238,232,245,0.3);text-decoration:none;margin-bottom:.7rem;transition:color .3s;}
+    .ft-col a:hover{color:var(--or2);}
+    .ft-bottom{border-top:0.5px solid rgba(238,232,245,0.06);padding-top:2rem;display:justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    .ft-copy{font-size:9px;font-weight:200;letter-spacing:.12em;color:rgba(238,232,245,0.15);}
+
+    @media(max-width:900px){
+      nav{padding:1.4rem 1.5rem;}
+      .nav-c,.nav-r{display:none;}
+      .hbg{display:flex;}
+      .content-page{padding:8rem 1.5rem 3rem;}
+      .prod-grid{grid-template-columns:1fr;}
+    }
+    </style>
+</head>
+<body>
+    <div class="cur-dot" id="cd"></div>
+    <div class="cur-circle" id="cc"></div>
+
+    <div class="mob-menu" id="mm">
+      <div class="mob-close" onclick="document.getElementById('mm').classList.remove('on')">— Fermer</div>
+      <div class="mob-links">
+        <a href="collections.html">Collections</a>
+        <a href="savoir-faire.html">Savoir-faire</a>
+        <a href="la-maison.html">La Maison</a>
+        <a href="univers.html">Univers</a>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-logo-wrap" onclick="window.location.href='orvane_site_unique.html'" style="cursor:pointer">
+        <div class="nav-logo">Orvane</div>
+        <div class="nav-logo-line"></div>
+      </div>
+      <div class="nav-c">
+        <a href="collections.html">Collections</a>
+        <a href="savoir-faire.html">Savoir-faire</a>
+        <a href="la-maison.html">La Maison</a>
+        <a href="univers.html">Univers</a>
+        <a href="cart.html" class="nav-cart">Panier</a>
+      </div>
+      <div class="hbg" onclick="document.getElementById('mm').classList.add('on')">
+        <i></i><i></i>
+      </div>
+    </nav>
+
+    <main class="content-page">
+        <h1 class="page-title">Nos Sacs</h1>
+        <p class="page-subtitle">Objets de désir</p>
+
+        <div class="prod-grid">
+            <div class="prod-card" onclick="window.location.href='astral.html'">
+                <div class="prod-img">
+                    <svg width="200" height="260" viewBox="0 0 200 260" fill="none">
+                        <path d="M60 78 Q60 62 100 62 Q140 62 140 78" stroke="#B8943F" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+                        <path d="M42 95 Q36 95 34 104 L22 192 Q20 202 32 204 L168 204 Q180 202 178 192 L166 104 Q164 95 158 95 Z" fill="#151220" stroke="#B8943F" stroke-width="0.7"/>
+                        <path d="M42 95 Q42 78 60 76 L140 76 Q158 78 158 95 Z" fill="#1C1828" stroke="#B8943F" stroke-width="0.7"/>
+                        <path d="M82 95 L82 86 Q82 76 100 76 Q118 76 118 86 L118 95" stroke="#E0B84A" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+                        <rect x="92" y="79" width="16" height="10" rx="2" fill="none" stroke="#E0B84A" stroke-width="0.7"/>
+                        <circle cx="100" cy="84" r="1.5" fill="#E0B84A"/>
+                        <line x1="34" y1="138" x2="166" y2="138" stroke="rgba(184,148,63,0.12)" stroke-width="0.5"/>
+                        <text x="100" y="178" text-anchor="middle" font-family="Outfit" font-size="6" letter-spacing="4" fill="rgba(184,148,63,0.35)">ORVANE</text>
+                        <circle cx="162" cy="98" r="2.5" fill="#E0B84A"/>
+                        <line x1="22" y1="204" x2="178" y2="204" stroke="rgba(184,148,63,0.3)" stroke-width="0.7"/>
+                    </svg>
+                </div>
+                <div class="prod-info">
+                    <div class="prod-name">L'Astral</div>
+                    <div class="prod-price">2 400 €</div>
+                </div>
+            </div>
+            <div class="prod-card" onclick="window.location.href='brut.html'">
+                <div class="prod-img">
+                    <svg width="200" height="260" viewBox="0 0 200 260" fill="none">
+                        <rect x="30" y="90" width="140" height="100" rx="2" fill="#0D0B14" stroke="#B8943F" stroke-width="0.7"/>
+                        <rect x="30" y="90" width="140" height="26" rx="2" fill="#151220" stroke="#B8943F" stroke-width="0.7"/>
+                        <line x1="30" y1="116" x2="170" y2="116" stroke="#B8943F" stroke-width="0.7"/>
+                        <rect x="48" y="70" width="38" height="22" rx="1" fill="#0A0810" stroke="#B8943F" stroke-width="0.6"/>
+                        <rect x="114" y="70" width="38" height="22" rx="1" fill="#0A0810" stroke="#B8943F" stroke-width="0.6"/>
+                        <line x1="100" y1="70" x2="100" y2="92" stroke="rgba(184,148,63,0.2)" stroke-width="0.5"/>
+                        <rect x="82" y="100" width="36" height="8" rx="1" fill="none" stroke="#E0B84A" stroke-width="0.7"/>
+                        <line x1="82" y1="104" x2="78" y2="104" stroke="#E0B84A" stroke-width="0.6"/>
+                        <line x1="118" y1="104" x2="122" y2="104" stroke="#E0B84A" stroke-width="0.6"/>
+                        <circle cx="100" cy="104" r="1.5" fill="#E0B84A"/>
+                        <rect x="40" y="130" width="120" height="50" rx="1" fill="none" stroke="rgba(184,148,63,0.1)" stroke-width="0.5"/>
+                        <line x1="100" y1="130" x2="100" y2="180" stroke="rgba(184,148,63,0.08)" stroke-width="0.5"/>
+                        <text x="100" y="162" text-anchor="middle" font-family="Outfit" font-size="6" letter-spacing="4" fill="rgba(184,148,63,0.3)">ORVANE</text>
+                        <line x1="30" y1="190" x2="170" y2="190" stroke="rgba(184,148,63,0.25)" stroke-width="0.6"/>
+                        <circle cx="168" cy="94" r="2.5" fill="#E0B84A"/>
+                    </svg>
+                </div>
+                <div class="prod-info">
+                    <div class="prod-name">Le Brut</div>
+                    <div class="prod-price">1 950 €</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+      <div class="ft">
+        <div>
+          <div class="ft-brand">Orvane</div>
+          <div class="ft-tag">Maison de maroquinerie indépendante.<br>Paris, France. Fondée en 2026.<br>Chaque pièce est unique.</div>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-t">Collections</div>
+          <a href="astral.html">L'Astral — Femme</a>
+          <a href="brut.html">Le Brut — Homme</a>
+          <a href="collections.html">Petite maroquinerie</a>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-t">La Maison</div>
+          <a href="la-maison.html">Notre histoire</a>
+          <a href="savoir-faire.html">Savoir-faire</a>
+          <a href="manifeste.html">Manifeste</a>
+        </div>
+      </div>
+      <div class="ft-bottom">
+        <div class="ft-copy">© 2026 Orvane Paris — Tous droits réservés</div>
+      </div>
+    </footer>
+
+    <script>
+    const cd=document.getElementById('cd'),cc=document.getElementById('cc');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{
+      mx=e.clientX;my=e.clientY;
+      cd.style.left=mx+'px';cd.style.top=my+'px';
+    });
+    (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cc.style.left=rx+'px';cc.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('button,a,.prod-card,.hbg,.mob-close,.nav-logo-wrap').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cc.style.width='64px';cc.style.height='64px';cd.style.opacity='0';});
+      el.addEventListener('mouseleave',()=>{cc.style.width='44px';cc.style.height='44px';cd.style.opacity='1';});
+    });
+    </script>
+</body>
+</html>

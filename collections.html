@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections | Orvane Paris</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@100;200;300;400&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --n:#05040A;
+      --n2:#0D0B14;
+      --n3:#151220;
+      --w:#EEE8F5;
+      --w2:#C8BED8;
+      --or:#B8943F;
+      --or2:#E0B84A;
+      --acc:#7B4FD4;
+      --acc2:#A87FEE;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--n);font-family:'Outfit',sans-serif;color:var(--w);overflow-x:hidden;cursor:none;}
+
+    .cur{position:fixed;z-index:9999;pointer-events:none;mix-blend-mode:difference;}
+.cur-dot{width:6px;height:6px;background:var(--w);border-radius:50%;position:fixed;transform:translate(-50%,-50%);transition:width .3s,height .3s;pointer-events:none;}
+.cur-circle{width:44px;height:44px;border:1px solid rgba(238,232,245,0.3);border-radius:50%;position:fixed;transform:translate(-50%,-50%);transition:all .18s cubic-bezier(.25,.1,.25,1);pointer-events:none;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.8rem 3rem;background:var(--n);}
+    .nav-logo-wrap{display:flex;flex-direction:column;align-items:flex-start;}
+    .nav-logo{font-family:'Playfair Display',serif;font-weight:400;font-size:17px;letter-spacing:0.3em;color:var(--w);text-transform:uppercase;line-height:1;}
+    .nav-logo-line{width:100%;height:0.5px;background:var(--or);margin-top:3px;opacity:0.6;}
+    .nav-c{display:flex;gap:2.5rem;align-items:center;}
+    .nav-c a{font-size:9px;font-weight:200;letter-spacing:0.35em;text-transform:uppercase;color:var(--w2);text-decoration:none;transition:color .3s;}
+    .nav-c a:hover{color:var(--or2);}
+    .nav-cart{font-size:9px;font-weight:200;letter-spacing:0.35em;text-transform:uppercase;color:var(--w2);text-decoration:none;transition:color .3s;}
+    .nav-cart:hover{color:var(--or2);}
+    .nav-r{display:flex;gap:1.5rem;align-items:center;}
+    .nav-r span{font-size:9px;font-weight:200;letter-spacing:0.25em;text-transform:uppercase;color:rgba(238,232,245,0.4);cursor:pointer;transition:color .3s;}
+    .nav-r span:hover{color:var(--or);}
+    .hbg{display:none;flex-direction:column;gap:6px;cursor:pointer;}
+    .hbg i{width:24px;height:0.5px;background:var(--w);display:block;transition:all .4s;}
+
+    .mob-menu{position:fixed;inset:0;background:var(--n2);z-index:300;display:flex;flex-direction:column;justify-content:center;padding:3rem;transform:translateY(-100%);transition:transform .7s cubic-bezier(.77,0,.18,1);}
+    .mob-menu.on{transform:translateY(0);}
+    .mob-close{position:absolute;top:2rem;right:2rem;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--w2);cursor:pointer;}
+    .mob-links{display:flex;flex-direction:column;gap:1.5rem;}
+    .mob-links a{font-family:'Playfair Display',serif;font-size:clamp(32px,8vw,52px);font-weight:400;font-style:italic;color:var(--w);text-decoration:none;transition:color .3s;}
+    .mob-links a:hover{color:var(--or2);}
+
+    .content-page{padding:10rem 3rem 5rem;}
+    .page-title{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,80px);font-weight:400;font-style:italic;color:var(--w);margin-bottom:2rem;text-align:center;}
+    .page-subtitle{font-size:12px;font-weight:200;letter-spacing:0.4em;text-transform:uppercase;color:var(--or);text-align:center;margin-bottom:4rem;}
+
+    .grid-collections{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:4rem;}
+    .coll-card{background:var(--n2);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:0.5px solid rgba(184,148,63,0.1);transition:all .4s;position:relative;overflow:hidden;}
+    .coll-card:hover{border-color:var(--or);}
+    .coll-name{font-family:'Playfair Display',serif;font-size:24px;font-style:italic;z-index:2;}
+
+    footer{background:#020108;padding:5rem 3rem 2rem;border-top:0.5px solid rgba(184,148,63,0.12);margin-top:5rem;}
+    .ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;}
+    .ft-brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;letter-spacing:.3em;color:var(--w);margin-bottom:.8rem;}
+    .ft-tag{font-size:10px;font-weight:200;letter-spacing:.1em;color:rgba(238,232,245,0.2);line-height:1.9;}
+    .ft-col-t{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--or);margin-bottom:1.2rem;}
+    .ft-col a{display:block;font-size:10px;font-weight:200;letter-spacing:.08em;color:rgba(238,232,245,0.3);text-decoration:none;margin-bottom:.7rem;transition:color .3s;}
+    .ft-col a:hover{color:var(--or2);}
+    .ft-bottom{border-top:0.5px solid rgba(238,232,245,0.06);padding-top:2rem;display:justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    .ft-copy{font-size:9px;font-weight:200;letter-spacing:.12em;color:rgba(238,232,245,0.15);}
+
+    @media(max-width:900px){
+      nav{padding:1.4rem 1.5rem;}
+      .nav-c,.nav-r{display:none;}
+      .hbg{display:flex;}
+      .content-page{padding:8rem 1.5rem 3rem;}
+      .grid-collections{grid-template-columns:1fr;}
+    }
+    </style>
+</head>
+<body>
+    <div class="cur-dot" id="cd"></div>
+    <div class="cur-circle" id="cc"></div>
+
+    <div class="mob-menu" id="mm">
+      <div class="mob-close" onclick="document.getElementById('mm').classList.remove('on')">— Fermer</div>
+      <div class="mob-links">
+        <a href="collections.html">Collections</a>
+        <a href="savoir-faire.html">Savoir-faire</a>
+        <a href="la-maison.html">La Maison</a>
+        <a href="univers.html">Univers</a>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-logo-wrap" onclick="window.location.href='orvane_site_unique.html'" style="cursor:pointer">
+        <div class="nav-logo">Orvane</div>
+        <div class="nav-logo-line"></div>
+      </div>
+      <div class="nav-c">
+        <a href="collections.html">Collections</a>
+        <a href="savoir-faire.html">Savoir-faire</a>
+        <a href="la-maison.html">La Maison</a>
+        <a href="univers.html">Univers</a>
+        <a href="cart.html" class="nav-cart">Panier</a>
+      </div>
+      <div class="hbg" onclick="document.getElementById('mm').classList.add('on')">
+        <i></i><i></i>
+      </div>
+    </nav>
+
+    <main class="content-page">
+        <h1 class="page-title">Nos Collections</h1>
+        <p class="page-subtitle">L'essence de l'exceptionnel</p>
+
+        <div class="grid-collections">
+            <div class="coll-card">
+                <span class="coll-name">Collection Inaugurale</span>
+            </div>
+            <div class="coll-card">
+                <span class="coll-name">L'Astral</span>
+            </div>
+            <div class="coll-card">
+                <span class="coll-name">Le Brut</span>
+            </div>
+            <div class="coll-card">
+                <span class="coll-name">Archives</span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+      <div class="ft">
+        <div>
+          <div class="ft-brand">Orvane</div>
+          <div class="ft-tag">Maison de maroquinerie indépendante.<br>Paris, France. Fondée en 2026.<br>Chaque pièce est unique.</div>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-t">Collections</div>
+          <a href="astral.html">L'Astral — Femme</a>
+          <a href="brut.html">Le Brut — Homme</a>
+          <a href="collections.html">Petite maroquinerie</a>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-t">La Maison</div>
+          <a href="la-maison.html">Notre histoire</a>
+          <a href="savoir-faire.html">Savoir-faire</a>
+          <a href="manifeste.html">Manifeste</a>
+        </div>
+      </div>
+      <div class="ft-bottom">
+        <div class="ft-copy">© 2026 Orvane Paris — Tous droits réservés</div>
+      </div>
+    </footer>
+
+    <script>
+    const cd=document.getElementById('cd'),cc=document.getElementById('cc');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{
+      mx=e.clientX;my=e.clientY;
+      cd.style.left=mx+'px';cd.style.top=my+'px';
+    });
+    (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cc.style.left=rx+'px';cc.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('button,a,.coll-card,.hbg,.mob-close,.nav-logo-wrap').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cc.style.width='64px';cc.style.height='64px';cd.style.opacity='0';});
+      el.addEventListener('mouseleave',()=>{cc.style.width='44px';cc.style.height='44px';cd.style.opacity='1';});
+    });
+    </script>
+</body>
+</html>
